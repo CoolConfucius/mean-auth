@@ -27,7 +27,7 @@
           <li ng-if="!user"><a ng-click="login()">Login</a></li>
           <li ng-if="!user"><a href="#/register">Register</a></li>
           <li ng-if="user"><a href="#/profile">Profile</a></li>
-          <li ng-if="user"><a href="/users/logout">Logout</a></li>
+          <li ng-if="user"><a ng-click="logout()">Logout</a></li>
         </ul>
       </div>
     </div>

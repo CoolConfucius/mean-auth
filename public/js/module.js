@@ -40,7 +40,7 @@ app.service('Todo', function($http) {
 app.service('Auth', function($http, $state, $localStorage, $rootScope) {
   this.register = function(user) {    
     $http({method: 'POST', url: '/register', data: user}).then(function success(data){
-      // $state.go('login');
+      return $http({method: 'POST', url: '/login', data: user});
     }, function err(err){
     });    
   };
