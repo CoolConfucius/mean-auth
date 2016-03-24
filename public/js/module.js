@@ -66,10 +66,7 @@ app.service('Auth', function($http, $state, $localStorage, $rootScope) {
 app.run(function(Auth, Todo, $rootScope){
   Auth.user();
   Todo.todos();
-   $rootScope.todos = Todo.data; 
-  // Todo.getTodos(function(){
-  //   $rootScope.todos = Todo.data; 
-  // })
+  $rootScope.todos = Todo.data; 
 });
 
 
@@ -78,6 +75,9 @@ app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, A
   
   // User Related: 
   $rootScope.user = $localStorage.token;
+  if ($rootScope.user) {
+    $rootScope.username = $rootScope.user.config.data.username; 
+  };
   $rootScope.showlogin = false; 
   $scope.toggleshowlogin = function(){
     $rootScope.showlogin = !$rootScope.showlogin;
@@ -144,7 +144,6 @@ app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, A
   };
 
   $scope.addTodo = function(todo){
-    console.log("addTdod", todo);
     var newObj; 
     if (todo) {
       var description = todo.description ? todo.description : 'default description';

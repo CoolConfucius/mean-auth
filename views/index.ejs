@@ -26,16 +26,11 @@
           <!-- <li ng-if="!user"><a ng-click="toggleshowlogin()">Login</a></li> -->
           <li ng-if="!user"><a ng-click="login()">Login</a></li>
           <li ng-if="!user"><a href="#/register">Register</a></li>
-          <li ng-if="user"><a href="#/profile">Profile</a></li>
+          <li ng-if="user"><a href="#/profile">Welcome, {{username}} !</a></li>
           <li ng-if="user"><a ng-click="logout()">Logout</a></li>
         </ul>
       </div>
     </div>
-  </nav>
-
-  <nav>
-    <h5 ng-if="user">Logged in as {{user.config.data.username}}</h5>
-    <h5 ng-if="!user">Not logged in</h5>
   </nav>
 
   <!-- <nav ng-if="!user && showlogin">
