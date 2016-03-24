@@ -14,12 +14,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 // Services: 
 app.service('Todo', function($http) {
   this.todos = function() {
+    console.log("this.todos \n");
     return $http.get('/todos').then(res => {
       this.data = res.data; 
     }); 
   }; 
 
   this.getTodos = function(cb) {
+    console.log("this.getTodos \n");
     return $http.get('/todos').then(res => {
       this.data = res.data; 
       cb();
@@ -42,17 +44,9 @@ app.service('Todo', function($http) {
 app.service('Auth', function($http, $state, $localStorage, $rootScope) {
   this.register = function(user) {    
     return $http({method: 'POST', url: '/register', data: user})
-    // .then((data) => {
-      // return $http({method: 'POST', url: '/login', data: user});
-      // $state.go("home"); 
-      // this.login(user); 
-    // }, 
-    // function err(err){
-    // });    
   };
 
   this.login = (user) => {
-    console.log("LOGIN LOGIN");
     return $http({method: 'POST', url: '/login', data: user});
   }
   
@@ -72,7 +66,10 @@ app.service('Auth', function($http, $state, $localStorage, $rootScope) {
 app.run(function(Auth, Todo, $rootScope){
   Auth.user();
   Todo.todos();
-  $rootScope.todos = Todo.data; 
+   $rootScope.todos = Todo.data; 
+  // Todo.getTodos(function(){
+  //   $rootScope.todos = Todo.data; 
+  // })
 });
 
 
@@ -111,7 +108,6 @@ app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, A
       password: $scope.logpassword,
       username: $scope.logusername
     }
-    console.log("USER", user, "\n\n");
 
     Auth.login(user)
     .then((data)=>{
@@ -136,9 +132,6 @@ app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, A
     console.log("mainCtrl ctrl");
     $rootScope.todos = Todo.data; 
     $scope.todos = $rootScope.todos;
-    // $scope.todos = Todo.data;
-    console.log("Scope todos", $scope.todos);
-    console.log("Scope todos", Todo.data);
   });
 
   $scope.sort = function(key){
