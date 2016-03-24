@@ -6,7 +6,7 @@
     "Benjamin Huang <coolconfucius@yahoo.com>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/CoolConfucius/meanstack-crud",
+  "homepage": "https://github.com/CoolConfucius/mean-auth",
   "moduleType": [],
   "ignore": [
     "**/.*",
@@ -19,6 +19,8 @@
   "dependencies": {
     "angular": "^1.5.0",
     "angular-ui-router": "^0.2.18",
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "ngstorage": "^0.3.10",
+    "sweetalert": "^1.1.3"
   }
 }
