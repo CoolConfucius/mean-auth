@@ -42,15 +42,17 @@ app.service('Todo', function($http) {
 app.service('Auth', function($http, $state, $localStorage, $rootScope) {
   this.register = function(user) {    
     return $http({method: 'POST', url: '/register', data: user})
-    // .then(function success(data){
-    //   // return $http({method: 'POST', url: '/login', data: user});
-    //   $state.go("home"); 
+    // .then((data) => {
+      // return $http({method: 'POST', url: '/login', data: user});
+      // $state.go("home"); 
+      // this.login(user); 
     // }, 
     // function err(err){
     // });    
   };
 
   this.login = (user) => {
+    console.log("LOGIN LOGIN");
     return $http({method: 'POST', url: '/login', data: user});
   }
   
@@ -95,7 +97,13 @@ app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, A
       username: $scope.regusername,
       password: $scope.regpassword
     }
-    Auth.register(user);
+    Auth.register(user)
+    .then((data)=>{
+      console.log('data: ', data);
+      $localStorage.token = data; 
+      $rootScope.user = data;
+      $state.go('home');
+    });
   }
 
   $scope.login = function() {
