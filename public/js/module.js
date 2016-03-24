@@ -1,6 +1,6 @@
 'use strict'; 
 
-var app = angular.module("someApp", ["ui.router"]); 
+var app = angular.module("app", ["ui.router"]); 
 
 app.service('Todo', function($http) {
   
@@ -39,9 +39,9 @@ app.run(function(Todo, $rootScope){
   $rootScope.todos = Todo.data; 
 });
 
-app.controller('homeCtrl', function($rootScope, $scope, $state, Todo){
+app.controller('mainCtrl', function($rootScope, $scope, $state, Todo){
   $scope.getTodos = Todo.getTodos(function(){
-    console.log("homeCtrl ctrl");
+    console.log("mainCtrl ctrl");
   // console.log(Todo.todos(), "here?"); 
     $rootScope.todos = Todo.data; 
     $scope.todos = $rootScope.todos;
