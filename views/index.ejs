@@ -23,7 +23,8 @@
         <ul class="nav navbar-nav navbar-right">
           <li ng-if="!user"><input type="text" placeholder="Username"></li>
           <li ng-if="!user"><input type="text" placeholder="Password"></li>
-          <li><a ng-click="toggleshowlogin()">Login</a></li>
+          <!-- <li><a ng-click="toggleshowlogin()">Login</a></li> -->
+          <li><a ng-click="login()">Login</a></li>
           <li ng-if="!user"><a href="#/register">Register</a></li>
           <li ng-if="user"><a href="#/profile">Profile</a></li>
           <li ng-if="user"><a href="/users/logout">Logout</a></li>
@@ -32,7 +33,7 @@
     </div>
   </nav>
 
-  <nav class="container">
+  <nav>
     <h5 ng-if="user">Logged in as {{user.username}}</h5>
     <h5 ng-if="!user">Not logged in</h5>
   </nav>

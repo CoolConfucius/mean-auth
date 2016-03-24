@@ -5,7 +5,7 @@ var app = angular.module("app", ["ui.router", "ngStorage"]);
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-  .state('home', { url: '/', templateUrl: 'html/home.html' })
+  .state('home', { url: '/', templateUrl: 'html/home.html', controller: 'mainCtrl' })
   .state('register', { url: '/register', templateUrl: 'html/register.html', controller: 'mainCtrl' })
   $urlRouterProvider.otherwise('/');
 });
