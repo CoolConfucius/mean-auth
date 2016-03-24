@@ -102,7 +102,7 @@ app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, A
       console.log('data: ', data);
       $localStorage.token = data; 
       $rootScope.user = data;
-      $state.go('profile');
+      $state.go('home');
     },
     function err(err) {
       swal("Invalid Password or Username");

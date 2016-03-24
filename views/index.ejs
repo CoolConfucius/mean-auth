@@ -23,8 +23,8 @@
         <ul class="nav navbar-nav navbar-right">
           <li ng-show="!user"><input ng-model="logusername" type="text" placeholder="Username"></li>
           <li ng-show="!user"><input ng-model="logpassword" type="text" placeholder="Password"></li>
-          <!-- <li><a ng-click="toggleshowlogin()">Login</a></li> -->
-          <li><a ng-click="login()">Login</a></li>
+          <!-- <li ng-if="!user"><a ng-click="toggleshowlogin()">Login</a></li> -->
+          <li ng-if="!user"><a ng-click="login()">Login</a></li>
           <li ng-if="!user"><a href="#/register">Register</a></li>
           <li ng-if="user"><a href="#/profile">Profile</a></li>
           <li ng-if="user"><a href="/users/logout">Logout</a></li>
