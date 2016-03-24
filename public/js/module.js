@@ -10,6 +10,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 });
 
+
+// Services: 
 app.service('Todo', function($http) {
   this.todos = function() {
     return $http.get('/todos').then(res => {
@@ -39,10 +41,13 @@ app.service('Todo', function($http) {
 
 app.service('Auth', function($http, $state, $localStorage, $rootScope) {
   this.register = function(user) {    
-    $http({method: 'POST', url: '/register', data: user}).then(function success(data){
-      return $http({method: 'POST', url: '/login', data: user});
-    }, function err(err){
-    });    
+    return $http({method: 'POST', url: '/register', data: user})
+    // .then(function success(data){
+    //   // return $http({method: 'POST', url: '/login', data: user});
+    //   $state.go("home"); 
+    // }, 
+    // function err(err){
+    // });    
   };
 
   this.login = (user) => {
@@ -61,12 +66,15 @@ app.service('Auth', function($http, $state, $localStorage, $rootScope) {
   }
 });
 
+// Run: 
 app.run(function(Auth, Todo, $rootScope){
   Auth.user();
   Todo.todos();
   $rootScope.todos = Todo.data; 
 });
 
+
+// Controllers: 
 app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, Auth, Todo){
   
   // User Related: 

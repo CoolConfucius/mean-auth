@@ -6,7 +6,8 @@ router.get('/', function(req, res, next) {
   console.log("getting todos");
   Todo.find({}, function(err, todos){
     if(err) return res.status(400).send(err); 
-    console.log("Found them,", todos);
+    // console.log("Found them,", todos);
+    console.log("Found todos!,");
     res.send(todos); 
   });
 });

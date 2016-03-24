@@ -35,7 +35,15 @@ userSchema.statics.register = function(user, cb) {
         newUser.password = hash;
         newUser.save(function(err, savedUser){
           savedUser.password = null;
-          cb(err, savedUser);
+          // cb(err, savedUser);
+          console.log("HERE??? \N");
+          User.findOne({username: newUser.username}, function(err, dbUser) {
+            console.log("HERE??? \n");
+            if(err || !dbUser) return cb(err || 'Incorrect username or password.');
+              dbUser.password = null;
+              console.log("HERE???6 \n");
+              cb(null, dbUser);
+          });
         });
       });
     });

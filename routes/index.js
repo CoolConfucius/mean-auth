@@ -12,7 +12,13 @@ router.get('/', function(req, res, next) {
 
 router.post('/register', function(req, res, next){
   User.register(req.body, function(err, user){    
-    res.send(user);    
+    if (err) {
+      console.log(err, "< here's the rr! \n\n");
+    }
+    // if (err) return res.status(401).send(err);
+    var token = user.token();
+    // res.send(user);    
+    res.status(200).send(token);
   });
 })
 
@@ -20,7 +26,7 @@ router.post('/login', function(req, res, next){
   User.authenticate(req.body, function(err, user){
     if (err) return res.status(401).send(err);
     var token = user.token();
-    console.log('\n\nresponse1: ', res);
+    // console.log('\n\nresponse1: ', res);
     res.status(200).send(token);
   });
 })
