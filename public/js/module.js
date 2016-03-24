@@ -11,18 +11,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 app.service('Todo', function($http) {
-  
   this.todos = function() {
     return $http.get('/todos').then(res => {
       this.data = res.data; 
-      console.log(this.data, "this data");
     }); 
   }; 
 
   this.getTodos = function(cb) {
     return $http.get('/todos').then(res => {
       this.data = res.data; 
-      console.log(this.data, "this data");
       cb();
     }); 
   }
@@ -38,7 +35,30 @@ app.service('Todo', function($http) {
   this.remove = function(todo) {
     return $http.delete(`/todos/${todo}`)
   };
+});
 
+app.service('Auth', function($http, $state, $localStorage, $rootScope) {
+  this.register = function(user) {    
+    $http({method: 'POST', url: '/users/register', data: user}).then(function success(data){
+      $state.go('login');
+    }, function err(err){
+    });    
+  };
+
+  this.login = (user) => {
+    return $http({method: 'POST', url: '/users/login', data: user});
+  }
+  
+  this.logout = () => {
+    this.token = null;
+    $localStorage.token = null;
+    $state.go('home');
+  }
+
+  this.user = function() {
+    this.data = $localStorage.token; 
+    $rootScope.user = $localStorage.token; 
+  }
 });
 
 app.run(function(Todo, $rootScope){
@@ -48,9 +68,51 @@ app.run(function(Todo, $rootScope){
 });
 
 app.controller('mainCtrl', function($rootScope, $scope, $state, Todo){
+  
+  // User Related: 
+  $rootScope.user = $localStorage.token;
+
+  $scope.regClick = function(){
+    if ($scope.regPass !== $scope.regPass2) {
+      swal("Passwords not the same!");
+      return;
+    };
+    var user = {
+      email: $scope.regEmail,
+      password: $scope.regPass,
+      username: $scope.regUsername
+    }
+    Auth.register(user);
+  }
+
+  $scope.loginClick = function() {
+    var user = {
+      email: $scope.logEmail,
+      password: $scope.logPass,
+      username: $scope.logUsername
+    }
+
+    Auth.login(user)
+    .then((data)=>{
+      console.log('data: ', data);
+      $localStorage.token = data; 
+      $rootScope.user = data;
+      $state.go('profile');
+    },
+    function err(err) {
+      swal("Invalid Password or Username");
+    });
+  }
+
+  $scope.logout = function() {
+    Auth.logout();
+    $rootScope.user = null;
+  }
+
+
+  // Todo Related:
   $scope.getTodos = Todo.getTodos(function(){
     console.log("mainCtrl ctrl");
-  // console.log(Todo.todos(), "here?"); 
     $rootScope.todos = Todo.data; 
     $scope.todos = $rootScope.todos;
     // $scope.todos = Todo.data;
