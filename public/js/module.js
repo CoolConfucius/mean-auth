@@ -1,6 +1,13 @@
 'use strict'; 
 
-var app = angular.module("app", ["ui.router"]); 
+var app = angular.module("app", ["ui.router", "ngStorage"]); 
+
+
+app.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+  .state('home', { url: '/', templateUrl: 'html/home.html'})
+  $urlRouterProvider.otherwise('/');
+});
 
 app.service('Todo', function($http) {
   
