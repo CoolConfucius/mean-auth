@@ -92,9 +92,10 @@ app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, A
 
   $scope.login = function() {
     var user = {
-      password: $scope.logPass,
-      username: $scope.logUsername
+      password: $scope.logpassword,
+      username: $scope.logusername
     }
+    console.log("USER", user, "\n\n");
 
     Auth.login(user)
     .then((data)=>{
