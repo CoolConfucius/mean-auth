@@ -39,14 +39,14 @@ app.service('Todo', function($http) {
 
 app.service('Auth', function($http, $state, $localStorage, $rootScope) {
   this.register = function(user) {    
-    $http({method: 'POST', url: '/users/register', data: user}).then(function success(data){
+    $http({method: 'POST', url: '/register', data: user}).then(function success(data){
       $state.go('login');
     }, function err(err){
     });    
   };
 
   this.login = (user) => {
-    return $http({method: 'POST', url: '/users/login', data: user});
+    return $http({method: 'POST', url: '/login', data: user});
   }
   
   this.logout = () => {
@@ -61,13 +61,13 @@ app.service('Auth', function($http, $state, $localStorage, $rootScope) {
   }
 });
 
-app.run(function(Todo, $rootScope){
-  console.log("run app");
+app.run(function(Auth, Todo, $rootScope){
+  Auth.user();
   Todo.todos();
   $rootScope.todos = Todo.data; 
 });
 
-app.controller('mainCtrl', function($rootScope, $scope, $state, Todo){
+app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, Todo){
   
   // User Related: 
   $rootScope.user = $localStorage.token;
