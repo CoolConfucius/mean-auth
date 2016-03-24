@@ -6,7 +6,7 @@ var app = angular.module("app", ["ui.router", "ngStorage"]);
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('home', { url: '/', templateUrl: 'html/home.html' })
-  .state('register', { url: '/register', templateUrl: 'html/register.html' })
+  .state('register', { url: '/register', templateUrl: 'html/register.html', controller: 'mainCtrl' })
   $urlRouterProvider.otherwise('/');
 });
 
@@ -40,7 +40,7 @@ app.service('Todo', function($http) {
 app.service('Auth', function($http, $state, $localStorage, $rootScope) {
   this.register = function(user) {    
     $http({method: 'POST', url: '/register', data: user}).then(function success(data){
-      $state.go('login');
+      // $state.go('login');
     }, function err(err){
     });    
   };
@@ -67,27 +67,31 @@ app.run(function(Auth, Todo, $rootScope){
   $rootScope.todos = Todo.data; 
 });
 
-app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, Todo){
+app.controller('mainCtrl', function($rootScope, $localStorage, $scope, $state, Auth, Todo){
   
   // User Related: 
   $rootScope.user = $localStorage.token;
+  $rootScope.showlogin = false; 
+  $scope.toggleshowlogin = function(){
+    $rootScope.showlogin = !$rootScope.showlogin;
+  }
 
-  $scope.regClick = function(){
-    if ($scope.regPass !== $scope.regPass2) {
+  $scope.register = function(){
+    console.log($scope.regpassword, $scope.regconfirmpassword, "\n Register! Scope password! \n");
+    if ($scope.regpassword !== $scope.regconfirmpassword) {
+      console.log($scope.regpassword, "\n Scope password! \n");
       swal("Passwords not the same!");
       return;
     };
     var user = {
-      email: $scope.regEmail,
-      password: $scope.regPass,
-      username: $scope.regUsername
+      username: $scope.regusername,
+      password: $scope.regpassword
     }
     Auth.register(user);
   }
 
-  $scope.loginClick = function() {
+  $scope.login = function() {
     var user = {
-      email: $scope.logEmail,
       password: $scope.logPass,
       username: $scope.logUsername
     }

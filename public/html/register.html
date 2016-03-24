@@ -2,15 +2,15 @@
 <form id="formRegister" class="col-xs-8 col-xs-offset-2">
   <div class="form-group"><span class="requiredField">* </span>
     <label>Username</label>
-    <input ng-model="userObj.username" id="username" type="text" placeholder="Username" required="required" class="form-control"/>
+    <input ng-model="regusername" id="username" type="text" placeholder="Username" required="required" class="form-control"/>
   </div>
   <div class="form-group"><span class="requiredField">* </span>
     <label>Password</label>
-    <input ng-model="userObj.password" id="password" type="password" placeholder="Password" required="required" class="form-control"/>
+    <input ng-model="regpassword" id="password" type="password" placeholder="Password" required="required" class="form-control"/>
   </div>
   <div class="form-group"><span class="requiredField">* </span>
     <label>Confirm Password</label>
-    <input ng-model="userObj.confirmpassword" id="confirmpassword" type="password" placeholder="Confirm Password" required="required" class="form-control"/>
+    <input ng-model="regconfirmpassword" id="confirmpassword" type="password" placeholder="Confirm Password" required="required" class="form-control"/>
   </div>
   <button ng-click="register()" type="submit" class="btn btn-default">Submit</button>
 </form>
