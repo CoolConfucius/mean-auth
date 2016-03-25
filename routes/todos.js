@@ -26,7 +26,6 @@ router.put('/:id', function(req, res, next) {
     // console.log("Found one,", todo);
     todo.iscomplete = !todo.iscomplete; 
     todo.save(function(err, savedTodo){
-
       res.send(err || savedTodo);
     })
   });
