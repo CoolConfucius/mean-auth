@@ -35,6 +35,10 @@ todoSchema.statics.add = function (todo, cb) {
     duelong: duelong,
     dueshort: dueshort
   });
+  newtodo.save(function(err, savedTodo) {
+    if (err) return cb(err);
+    cb(null, savedTodo);
+  })
 };
 
 Todo = mongoose.model('Todo', todoSchema); 
