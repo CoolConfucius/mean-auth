@@ -23,6 +23,12 @@ todoSchema.statics.add = function (todo, cb) {
     duelong = moment(todo.due).format('MM/DD/YYYY, h:mm a');
     dueshort = moment(todo.due).format('MM/DD/YYYY');
   };
+  var newtodo = new Todo({
+    description: todo.description,
+    due: todo.due,
+    duelong: duelong,
+    dueshort: dueshort
+  });
   Todo.create({
     description: todo.description,
     due: todo.due,
