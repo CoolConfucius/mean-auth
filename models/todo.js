@@ -23,18 +23,18 @@ todoSchema.statics.add = function (todo, cb) {
     duelong = moment(todo.due).format('MM/DD/YYYY, h:mm a');
     dueshort = moment(todo.due).format('MM/DD/YYYY');
   };
+  // Todo.create({
+  //   description: todo.description,
+  //   due: todo.due,
+  //   duelong: duelong,
+  //   dueshort: dueshort
+  // }, cb);
   var newtodo = new Todo({
     description: todo.description,
     due: todo.due,
     duelong: duelong,
     dueshort: dueshort
   });
-  Todo.create({
-    description: todo.description,
-    due: todo.due,
-    duelong: duelong,
-    dueshort: dueshort
-  }, cb);
 };
 
 Todo = mongoose.model('Todo', todoSchema); 
