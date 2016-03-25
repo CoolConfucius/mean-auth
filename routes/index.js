@@ -14,7 +14,6 @@ router.post('/register', function(req, res, next){
   User.register(req.body, function(err, user){       
     if (err) return res.status(401).send(err);
     var token = user.token();
-    // console.log('\n\nresponse1: ', res);
     res.status(200).send(token);
   });
 })
