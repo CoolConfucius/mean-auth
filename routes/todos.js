@@ -32,7 +32,7 @@ router.put('/:id', function(req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-  console.log("post todo", req.params.id);
+  // console.log("post todo", req.params.id);
   Todo.findById(req.params.id, function(err, todo){
     if(err) return res.status(400).send(err); 
     console.log("Found one,", todo);
