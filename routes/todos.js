@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  console.log("post todo", req.body);
+  // console.log("post todo", req.body);
   Todo.add(req.body, function(err, todo){
     res.send(err || todo);
   });
